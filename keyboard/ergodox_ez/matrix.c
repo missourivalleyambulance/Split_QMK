@@ -118,7 +118,6 @@ uint8_t matrix_scan(void)
                 print("left side not responding\n");
             } else {
                 print("left side attached\n");
-                ergodox_blink_all_leds();
             }
         }
     }
@@ -341,4 +340,3 @@ static void select_row(uint8_t row)
         }
     }
 }
-

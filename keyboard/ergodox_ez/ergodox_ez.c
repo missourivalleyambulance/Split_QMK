@@ -15,28 +15,11 @@ void matrix_scan_user(void) {
 }
 
 void matrix_init_kb(void) {
-   // keyboard LEDs (see "PWM on ports OC1(A|B|C)" in "teensy-2-0.md")
-    TCCR1A = 0b10101001;  // set and configure fast PWM
-    TCCR1B = 0b00001001;  // set and configure fast PWM
 
-    // (tied to Vcc for hardware convenience)
-    DDRB  &= ~(1<<4);  // set B(4) as input
-    PORTB &= ~(1<<4);  // set B(4) internal pull-up disabled
-
-    // unused pins - C7, D4, D5, D7, E6
-    // set as input with internal pull-ip enabled
-    DDRC  &= ~(1<<7);
-    DDRD  &= ~(1<<7 | 1<<4);
-    DDRE  &= ~(1<<6);
-    PORTC |=  (1<<7);
-    PORTD |=  (1<<7 | 1<<4);
-    PORTE |=  (1<<6);
-
-    ergodox_blink_all_leds();
 
     matrix_init_user();
 
-    rgblight_init(); 
+    rgblight_init();
 }
 
 void matrix_scan_kb(void) {
@@ -44,25 +27,6 @@ void matrix_scan_kb(void) {
 }
 
 
-void ergodox_blink_all_leds(void)
-{
-    ergodox_led_all_off();
-    ergodox_led_all_set(LED_BRIGHTNESS_HI);
-    ergodox_right_led_1_on();
-    _delay_ms(50);
-    ergodox_right_led_2_on();
-    _delay_ms(50);
-    ergodox_right_led_3_on();
-    _delay_ms(50);
-    ergodox_right_led_1_off();
-    _delay_ms(50);
-    ergodox_right_led_2_off();
-    _delay_ms(50);
-    ergodox_right_led_3_off();
-    //ergodox_led_all_on();
-    //_delay_ms(333);
-    ergodox_led_all_off();
-}
 
 uint8_t init_mcp23018(void) {
     mcp23018_status = 0x20;
@@ -98,5 +62,3 @@ out:
 
     return mcp23018_status;
 }
-
-
